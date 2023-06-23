@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  postgresKB:
+    image: postgres:14.1-alpine
+    container_name: postgresKB
+    hostname: postgres
+    ports:
+      - 5432:5433
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: KanbanDB
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+    driver: local
