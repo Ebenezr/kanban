@@ -8,12 +8,25 @@ export const resolvers = {
         where: {
           id: args.id,
         },
+        include: {
+          columns: {
+            include: {
+              cards: true,
+            },
+          },
+        },
       });
     },
     // get all projects
     projects: async (_parent: any, _args: any, context: Context) => {
       return await context.prisma.project.findMany({
-        include: { Column: true },
+        include: {
+          columns: {
+            include: {
+              cards: true,
+            },
+          },
+        },
       });
     },
   },
@@ -23,7 +36,7 @@ export const resolvers = {
     addProject: async (_parent: any, args: any, context: Context) => {
       return await context.prisma.project.create({
         data: {
-          name: args.title,
+          name: args.name,
         },
       });
     },
@@ -34,7 +47,7 @@ export const resolvers = {
           id: args.id,
         },
         data: {
-          name: args.title,
+          name: args.name,
         },
       });
     },
@@ -47,25 +60,65 @@ export const resolvers = {
         },
       });
     },
+    // add column
+    addColumn: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.column.create({
+        data: {
+          name: args.name,
+          projectId: args.projectId,
+        },
+      });
+    },
+    // update column
+    updateColumn: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.column.update({
+        where: {
+          id: args.id,
+        },
+        data: {
+          name: args.name,
+          projectId: args.projectId,
+        },
+      });
+    },
 
-    // Author Mutations
+    // delete column
+    deleteColumn: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.column.delete({
+        where: {
+          id: args.id,
+        },
+      });
+    },
+    // add card
+    addCard: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.card.create({
+        data: {
+          name: args.name,
+          columnId: args.columnId,
+        },
+      });
+    },
+    // update card
+    updateCard: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.card.update({
+        where: {
+          id: args.id,
+        },
+        data: {
+          name: args.name,
+          columnId: args.columnId,
+        },
+      });
+    },
 
-    // // add author
-    // addAuthor: async (_parent: any, args: any, context: Context) => {
-    //   return await context.prisma.author.create({
-    //     data: {
-    //       novelId: args.novelId,
-    //       name: args.name,
-    //     },
-    //   });
-    // },
-    // // delete author
-    // deleteAuthor: async (_parent: any, args: any, context: Context) => {
-    //   return await context.prisma.author.delete({
-    //     where: {
-    //       id: args.id,
-    //     },
-    //   });
-    // },
+    // delete card
+    deleteCard: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.card.delete({
+        where: {
+          id: args.id,
+        },
+      });
+    },
   },
 };
