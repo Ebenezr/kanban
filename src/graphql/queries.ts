@@ -1,16 +1,10 @@
-export const GET_PROJECTS = `#graphql
+import { gql } from '@apollo/client';
+export const GET_PROJECTS = gql`
   query Project {
     projects {
       id
       name
-      columns {
-        id
-        name
-        cards{
-            id
-            title
-        }
-      }
+      updatedAt
     }
   }
 `;
@@ -21,6 +15,7 @@ export const GET_PROJECT = `#graphql
       columns {
         id
         name
+
         cards{
             id
             title

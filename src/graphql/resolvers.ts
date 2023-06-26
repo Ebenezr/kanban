@@ -19,15 +19,7 @@ export const resolvers = {
     },
     // get all projects
     projects: async (_parent: any, _args: any, context: Context) => {
-      return await context.prisma.project.findMany({
-        include: {
-          columns: {
-            include: {
-              cards: true,
-            },
-          },
-        },
-      });
+      return await context.prisma.project.findMany({});
     },
   },
 

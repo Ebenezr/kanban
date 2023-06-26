@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client';
 // Patch
 export const UPDATE_PROJECT = `#graphql
   mutation UpdateProject($id: ID!, $name: String) {
@@ -27,12 +28,10 @@ export const UPDATE_CARD = `#graphql
 `;
 
 // Create
-export const ADD_PROJECT = `#graphql
+export const ADD_PROJECT = gql`
   mutation Mutation($name: String) {
-    addProject( name: $name) {
-      id
+    addProject(name: $name) {
       name
-
     }
   }
 `;
@@ -56,12 +55,11 @@ export const ADD_CARD = `#graphql
 `;
 
 // Destroy
-export const DELETE_PROJECT = `#graphql
+export const DELETE_PROJECT = gql`
   mutation Mutation($id: ID!) {
     deleteProject(id: $id) {
       id
       name
-
     }
   }
 `;
