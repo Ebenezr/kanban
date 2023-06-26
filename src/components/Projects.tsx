@@ -10,8 +10,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import { Button, CardContent, Grid, TextField } from '@mui/material';
-import { IProject } from '@/typings';
-import { AddProjectDialog } from './Dialoge';
+import Link from 'next/link';
+import { FormModal } from './FormModal';
+
 const Projects = () => {
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [open, setOpen] = useState(false);
@@ -118,9 +119,11 @@ const Projects = () => {
               }}
             >
               <div>
-                <Typography variant="h6" sx={{ mb: 1 }}>
-                  {project?.name}
-                </Typography>
+                <Link href={`/project/${project.id}`}>
+                  <Typography variant="h6" sx={{ mb: 1 }}>
+                    {project?.name}
+                  </Typography>
+                </Link>
                 <Typography variant="body2" color="text.secondary">
                   Updated At:{' '}
                   {project?.updatedAt
@@ -140,10 +143,12 @@ const Projects = () => {
           </Card>
         ))}
       </List>
-      <AddProjectDialog
+      <FormModal
         open={open}
         onClose={handleClose}
         onAddProject={handleAddProject}
+        setItemName={setProjectName}
+        itemName={projectName}
       />
     </Box>
   );

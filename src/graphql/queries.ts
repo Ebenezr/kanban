@@ -9,20 +9,34 @@ export const GET_PROJECTS = gql`
   }
 `;
 
-export const GET_PROJECT = `#graphql
+export const GET_PROJECT = gql`
   query Project($id: ID!) {
     project(id: $id) {
       columns {
         id
         name
 
-        cards{
-            id
-            title
+        cards {
+          id
+          name
         }
       }
       id
       name
+    }
+  }
+`;
+
+export const GET_COLUMN = gql`
+  query Column($id: ID!) {
+    column(id: $id) {
+      id
+      name
+      projectId
+      cards {
+        id
+        name
+      }
     }
   }
 `;
