@@ -38,17 +38,16 @@ export const ADD_PROJECT = gql`
 export const ADD_COLUMN = `#graphql
   mutation Mutation($projectId: ID!, $name: String) {
     addColumn(projectId: $projectId, name: $name) {
-      id
+
       name
       projectId
     }
   }
 `;
-export const ADD_CARD = `#graphql
-  mutation Mutation($columnId: ID!, $title: String) {
-    addAuthor(novelId: $columnId, title: $title) {
-      id
-      title
+export const ADD_CARD = gql`
+  mutation Mutation($columnId: String, $name: String) {
+    addCard(columnId: $columnId, name: $name) {
+      name
       columnId
     }
   }
@@ -78,6 +77,15 @@ export const DELETE_CARD = `#graphql
       id
       title
       columnId
+    }
+  }
+`;
+
+export const CLEAR_CARDS = gql`
+  mutation Mutation($columnId: String!) {
+    clearColumnCards(columnId: $columnId) {
+      id
+      name
     }
   }
 `;

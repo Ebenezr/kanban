@@ -21,6 +21,17 @@ export const resolvers = {
     projects: async (_parent: any, _args: any, context: Context) => {
       return await context.prisma.project.findMany({});
     },
+    //get column by id
+    column: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.column.findUnique({
+        where: {
+          id: args.id,
+        },
+        include: {
+          cards: true,
+        },
+      });
+    },
   },
 
   Mutation: {
@@ -109,6 +120,14 @@ export const resolvers = {
       return await context.prisma.card.delete({
         where: {
           id: args.id,
+        },
+      });
+    },
+    // delete card
+    clearColumnCards: async (_parent: any, args: any, context: Context) => {
+      return await context.prisma.card.deleteMany({
+        where: {
+          columnId: args.columnId,
         },
       });
     },
