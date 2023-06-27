@@ -34,7 +34,7 @@ scalar Date
   type Mutation {
     # create
     addProject(name: String): Project
-    addColumn(name: String): Column
+    addColumn(name: String, projectId:String): Column
     addCard(name: String,columnId:String): Card
     # destroy
     deleteCard(id: ID!): Card!

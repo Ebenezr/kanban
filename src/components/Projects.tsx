@@ -17,7 +17,7 @@ const Projects = () => {
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
-  const [addProject] = useMutation(ADD_PROJECT, {
+  const [addProject, { loading: posting }] = useMutation(ADD_PROJECT, {
     refetchQueries: [{ query: GET_PROJECTS }],
   });
   const [deleteProject] = useMutation(DELETE_PROJECT, {
@@ -86,7 +86,7 @@ const Projects = () => {
       </Typography>
     );
   return (
-    <Box sx={{ width: '100%', maxWidth: 650, p: 4 }}>
+    <Box sx={{ width: '100%', maxWidth: 1200, p: 4, mx: 'auto' }}>
       <Grid container spacing={2} alignItems="center" sx={{ py: 2, mb: 4 }}>
         <Grid item xs={8}>
           <TextField
@@ -146,9 +146,11 @@ const Projects = () => {
       <FormModal
         open={open}
         onClose={handleClose}
-        onAddProject={handleAddProject}
+        onAddItem={handleAddProject}
         setItemName={setProjectName}
         itemName={projectName}
+        titleName="Add New Project"
+        loading={posting}
       />
     </Box>
   );

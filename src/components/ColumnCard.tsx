@@ -3,37 +3,95 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import { Button, Box, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Box,
+  TextField,
+  Typography,
+  CircularProgress,
+} from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
 import { CardForm } from './CardForm';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_COLUMN } from '../graphql/queries';
-import { CLEAR_CARDS } from '../graphql/mutations';
+import { GET_COLUMN, GET_PROJECT } from '../graphql/queries';
+import {
+  CLEAR_CARDS,
+  DELETE_COLUMN,
+  UPDATE_COLUMN,
+} from '../graphql/mutations';
+import { ADD_CARD } from '../graphql/mutations';
+import { DocumentNode } from 'graphql';
+import { FormModal } from './FormModal';
 interface ColumnCardProps {
   id: string;
+  refetch: () => void;
 }
-const ColumnCard = ({ id }: ColumnCardProps) => {
+const ColumnCard = ({ id, refetch }: ColumnCardProps) => {
   const [showCardForm, setShowCardForm] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
-  const { data, loading, error, refetch } = useQuery(GET_COLUMN, {
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
+  const [columnName, setColumnName] = useState('');
+  const {
+    data,
+    loading,
+    error,
+    refetch: refetchColumn,
+  } = useQuery(GET_COLUMN, {
     variables: { id },
     skip: !id,
   });
+  // delete a column
+  const [deleteColumn, { loading: deleting }] = useMutation(DELETE_COLUMN, {
+    refetchQueries: [{ query: GET_PROJECT }],
+  });
+  const handleDeleteColumn = (columnId: string) => {
+    deleteColumn({ variables: { id: columnId } })
+      .then(() => {
+        refetch();
+      })
+      .catch((error) => {
+        console.error('Error deleting project:', error);
+      });
+  };
 
   // clears all column's cards
-  const [clearColumnCards] = useMutation(CLEAR_CARDS, {
+  const [clearColumnCards, { loading: clearing }] = useMutation(CLEAR_CARDS, {
     refetchQueries: [{ query: GET_COLUMN }],
   });
 
   const handleClearColumnCards = (columnId: string) => {
     clearColumnCards({ variables: { columnId: columnId } })
       .then(() => {
-        refetch();
+        refetchColumn();
       })
       .catch((error) => {
         console.error('Error deleting Cards:', error);
+      });
+  };
+
+  // update column name
+  const [updateColumn, { loading: updating }] = useMutation(UPDATE_COLUMN, {
+    refetchQueries: [{ query: GET_COLUMN }],
+  });
+
+  const handleColumnUpdate = () => {
+    updateColumn({ variables: { name: columnName, id: id } })
+      .then(() => {
+        handleCloseModal();
+        refetch();
+      })
+      .catch((error) => {
+        console.error('Error updating column', error);
       });
   };
 
@@ -106,11 +164,32 @@ const ColumnCard = ({ id }: ColumnCardProps) => {
                   gap: 2,
                 }}
               >
-                <Button size="small">Rename</Button>
-                <Button onClick={() => handleClearColumnCards(id)}>
+                <Button size="small" onClick={handleOpenModal}>
+                  Rename
+                </Button>
+                <Button
+                  onClick={() => handleClearColumnCards(id)}
+                  disabled={clearing}
+                  startIcon={
+                    clearing ? (
+                      <CircularProgress size={20} color="inherit" />
+                    ) : null
+                  }
+                >
                   Clear
                 </Button>
-                <Button size="small">Delete</Button>
+                <Button
+                  size="small"
+                  onClick={() => handleDeleteColumn(id)}
+                  disabled={deleting}
+                  startIcon={
+                    deleting ? (
+                      <CircularProgress size={20} color="inherit" />
+                    ) : null
+                  }
+                >
+                  Delete
+                </Button>
               </Box>
             </Popover>
           </>
@@ -150,11 +229,24 @@ const ColumnCard = ({ id }: ColumnCardProps) => {
         {showCardForm && (
           <CardForm
             columnId={data?.column?.id}
-            refetch={refetch}
+            projectId={''}
+            refetch={refetchColumn}
             setShowCardForm={setShowCardForm}
+            mutationName={ADD_CARD}
+            queryName={GET_COLUMN}
           />
         )}
       </CardActions>
+      <FormModal
+        open={openModal}
+        onClose={handleCloseModal}
+        onAddItem={handleColumnUpdate}
+        setItemName={setColumnName}
+        itemName={columnName}
+        titleName="Rename Column"
+        loading={updating}
+        columnName={data?.column?.name}
+      />
     </Card>
   );
 };

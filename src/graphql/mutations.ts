@@ -8,12 +8,11 @@ export const UPDATE_PROJECT = `#graphql
     }
   }
 `;
-export const UPDATE_COLUMN = `#graphql
-  mutation UpdateColumn($id: ID!, $name: String,$projectId: String) {
-    updateColumn(id: $id, name: $name,projectId: $projectId) {
+export const UPDATE_COLUMN = gql`
+  mutation UpdateColumn($id: ID!, $name: String) {
+    updateColumn(id: $id, name: $name) {
       id
       name
-      projectId
     }
   }
 `;
@@ -35,10 +34,9 @@ export const ADD_PROJECT = gql`
     }
   }
 `;
-export const ADD_COLUMN = `#graphql
-  mutation Mutation($projectId: ID!, $name: String) {
+export const ADD_COLUMN = gql`
+  mutation Mutation($projectId: String, $name: String) {
     addColumn(projectId: $projectId, name: $name) {
-
       name
       projectId
     }
@@ -62,10 +60,9 @@ export const DELETE_PROJECT = gql`
     }
   }
 `;
-export const DELETE_COLUMN = `#graphql
+export const DELETE_COLUMN = gql`
   mutation Mutation($id: ID!) {
     deleteColumn(id: $id) {
-      id
       name
       projectId
     }

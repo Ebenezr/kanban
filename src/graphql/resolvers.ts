@@ -80,7 +80,6 @@ export const resolvers = {
         },
         data: {
           name: args.name,
-          projectId: args.projectId,
         },
       });
     },

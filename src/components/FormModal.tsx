@@ -6,28 +6,36 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
+  CircularProgress,
 } from '@mui/material';
 
 interface DialogProps {
   open: boolean;
   onClose: () => void;
-  onAddProject: () => void;
+  onAddItem: () => void;
   setItemName: (name: string) => void;
   itemName: string;
+  titleName: string;
+  loading: boolean;
+  columnName: string;
 }
 const FormModal = ({
   open,
   onClose,
-  onAddProject,
+  onAddItem,
   setItemName,
   itemName,
+  titleName,
+  loading,
+  columnName,
 }: DialogProps) => {
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Add New Project</DialogTitle>
+      <DialogTitle>{titleName}</DialogTitle>
       <DialogContent sx={{ my: 2 }}>
         <TextField
-          label="Project Name"
+          defaultValue={columnName ?? ''}
+          label="Name"
           variant="outlined"
           size="small"
           fullWidth
@@ -37,7 +45,15 @@ const FormModal = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={onAddProject} variant="contained" color="primary">
+        <Button
+          onClick={onAddItem}
+          variant="contained"
+          color="primary"
+          disabled={loading}
+          startIcon={
+            loading ? <CircularProgress size={20} color="inherit" /> : null
+          }
+        >
           Add
         </Button>
       </DialogActions>

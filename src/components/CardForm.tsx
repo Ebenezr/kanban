@@ -4,25 +4,45 @@ import {
   CardActions,
   CardContent,
   TextField,
+  CircularProgress,
 } from '@mui/material';
 import React, { useState } from 'react';
-import { ADD_CARD } from '../graphql/mutations';
-import { GET_COLUMN } from '../graphql/queries';
+
 import { useMutation } from '@apollo/client';
 interface CardProps {
   columnId: string;
+  projectId: string;
   refetch: () => void;
   setShowCardForm: React.Dispatch<React.SetStateAction<boolean>>;
+  mutationName: any;
+  queryName: any;
 }
 
-const CardForm = ({ columnId, refetch, setShowCardForm }: CardProps) => {
-  const [addCard] = useMutation(ADD_CARD, {
-    refetchQueries: [{ query: GET_COLUMN }],
+const CardForm = ({
+  columnId,
+  projectId,
+  refetch,
+  setShowCardForm,
+  mutationName,
+  queryName,
+}: CardProps) => {
+  const [addItem, { loading }] = useMutation(mutationName, {
+    refetchQueries: [{ query: queryName }],
   });
   const [cardName, setCardName] = useState('');
 
-  const handleAddCard = () => {
-    addCard({ variables: { name: cardName, columnId: columnId } })
+  const handleAddItem = () => {
+    const variables: { name: string; projectId?: string; columnId?: string } = {
+      name: cardName,
+    };
+
+    if (columnId) {
+      variables.columnId = columnId;
+    } else if (projectId) {
+      variables.projectId = projectId;
+    }
+    console.log(variables);
+    addItem({ variables })
       .then(() => {
         refetch();
         setCardName('');
@@ -37,7 +57,7 @@ const CardForm = ({ columnId, refetch, setShowCardForm }: CardProps) => {
     <Card sx={{ boxShadow: 'none' }}>
       <CardContent>
         <TextField
-          label="Card Title"
+          label="Name"
           variant="outlined"
           size="small"
           fullWidth
@@ -47,7 +67,12 @@ const CardForm = ({ columnId, refetch, setShowCardForm }: CardProps) => {
       </CardContent>
       <CardActions style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button size="small">Cancel</Button>
-        <Button size="small" variant="contained" onClick={handleAddCard}>
+        <Button size="small" variant="contained" onClick={handleAddItem}
+          disabled={loading}
+          startIcon={
+            loading ? <CircularProgress size={20} color="inherit" /> : null
+          }
+        >
           ADD
         </Button>
       </CardActions>
