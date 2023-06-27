@@ -1,38 +1,97 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# KanBan Board
+Project Name: Kanban Board
 
-## Getting Started
+The Kanban Board project is a Next.js v13 application built with Prisma and GraphQL, with a PostgreSQL database run through Docker. It is a real-time task management tool that visualizes workflow stages, allowing for effective project and team management.
+Prerequisites
 
-First, run the development server:
+Ensure that you have the following installed on your system:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+    Docker
+    Node.js (preferably v14 or later)
+    Yarn package manager
+    Prisma CLI (npm install prisma -g)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Getting Started
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Please follow these steps to get the project running on your local machine.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+    Clone the repository:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+    Run the following command in your terminal to clone the project repository:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+    bash
 
-## Learn More
+git clone https://github.com/Ebenezr/kanban.git
+cd kanban
 
-To learn more about Next.js, take a look at the following resources:
+Replace [your_username] with your GitHub username.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Install the project dependencies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+In the project directory, run the following command to install the necessary dependencies:
 
-## Deploy on Vercel
+bash
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+yarn
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Start the PostgreSQL Docker container:
+
+Before running the application, you need to have a PostgreSQL instance running. The project includes a Docker configuration file for this. Use the following command to start the Docker container:
+
+bash
+
+docker-compose up -d
+
+Run database migrations:
+
+Before the application is run for the first time, the database schema needs to be set up. Use Prisma's migration tool to handle this:
+
+bash
+
+yarn prisma migrate dev
+
+Run the application:
+
+Finally, you can start the application with the following command:
+
+bash
+
+    yarn start
+
+    The application will be available at http://localhost:3000.
+
+Testing
+
+    This project uses Jest as a testing framework. To run the tests, use the following command:
+
+    bash
+
+    yarn test
+
+Building
+
+    To create a production-ready build of the project, use the following command:
+
+    bash
+
+yarn build
+
+You can then serve the built project using:
+
+bash
+
+    yarn serve
+
+Contributing
+
+If you'd like to contribute to this project, please fork the repository and make changes as you'd like. Pull requests are warmly welcome.
+License
+
+This project is open-source and available under the MIT License.
+Support
+
+If you're having any problem, please raise an issue on GitHub and the maintainers will be happy to help.
+Contact
+
+If you have any questions about this project, feel free to reach out.
+Happy Coding! 🚀
