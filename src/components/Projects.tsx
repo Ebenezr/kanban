@@ -151,6 +151,7 @@ const Projects = () => {
         itemName={projectName}
         titleName="Add New Project"
         loading={posting}
+        columnName=""
       />
     </Box>
   );
