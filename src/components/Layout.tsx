@@ -8,8 +8,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <Providers>
-          <Navbar />
-          <>{children}</>
+          <main className="bg-sky-50 h-screen">
+            <Navbar />
+            <>{children}</>
+          </main>
         </Providers>
       </ThemeProvider>
     </>
