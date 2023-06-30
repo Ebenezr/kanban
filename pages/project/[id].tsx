@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GET_PROJECT } from '../../src/graphql/queries';
 import { useQuery } from '@apollo/client';
@@ -31,6 +31,26 @@ const Project = () => {
     }
     setOpen(false);
   };
+
+  const [isWarningOpen, setWarningOpen] = useState(false);
+  const [isErrorOpen, setErrorOpen] = useState(false);
+
+  // check column count whenever data changes
+  useEffect(() => {
+    const columnCount = data?.project?.columns?.length || 0;
+
+    if (columnCount === 4) {
+      setWarningOpen(true);
+    } else {
+      setWarningOpen(false);
+    }
+
+    if (columnCount >= 5) {
+      setErrorOpen(true);
+    } else {
+      setErrorOpen(false);
+    }
+  }, [data]);
 
   if (loading)
     return (
@@ -108,11 +128,28 @@ const Project = () => {
           </Grid>
         )}
       </Grid>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="warning">
-          Maximum of 5 columns allowed.
-        </Alert>
-      </Snackbar>
+      {(data?.project?.columns?.length || 0) === 5 && (
+        <Snackbar
+          open={isErrorOpen}
+          autoHideDuration={6000}
+          onClose={() => setErrorOpen(false)}
+        >
+          <Alert onClose={() => setErrorOpen(false)} severity="error">
+            Maximum of 5 columns allowed.
+          </Alert>
+        </Snackbar>
+      )}
+      {(data?.project?.columns?.length || 0) === 4 && (
+        <Snackbar
+          open={isWarningOpen}
+          autoHideDuration={6000}
+          onClose={() => setWarningOpen(false)}
+        >
+          <Alert onClose={() => setWarningOpen(false)} severity="warning">
+            Only one column remaining.
+          </Alert>
+        </Snackbar>
+      )}
     </Box>
   );
 };
