@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { GET_PROJECT } from '../../src/graphql/queries';
-import { useQuery } from '@apollo/client';
-import { Grid, Typography, Button, Card, Snackbar } from '@mui/material';
-import Box from '@mui/material/Box';
-import { ColumnCard } from '@/src/components/ColumnCard';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Alert from '@mui/material/Alert';
-import { DocumentNode } from 'graphql';
-import { CardForm } from '@/src/components/CardForm';
-import { ADD_COLUMN } from '../../src/graphql/mutations';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { GET_PROJECT } from "../../src/graphql/queries";
+import { useQuery } from "@apollo/client";
+import { Grid, Typography, Button, Card, Snackbar } from "@mui/material";
+import Box from "@mui/material/Box";
+import { ColumnCard } from "@/src/components/ColumnCard";
+import CardActions from "@mui/material/CardActions";
+import Alert from "@mui/material/Alert";
+import { DocumentNode } from "graphql";
+import { CardForm } from "@/src/components/CardForm";
+import { ADD_COLUMN } from "../../src/graphql/mutations";
 const Project = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -26,7 +25,7 @@ const Project = () => {
     event: React.SyntheticEvent | Event,
     reason?: string
   ) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpen(false);
@@ -78,7 +77,7 @@ const Project = () => {
     );
 
   return (
-    <Box sx={{ mx: 'auto', p: 4 }} className="w-4/5">
+    <Box sx={{ mx: "auto", p: 4 }} className="w-4/5">
       <Grid container spacing={2}>
         {data?.project?.columns?.map((column: any, index: number) => (
           <React.Fragment key={column.id}>
@@ -94,8 +93,8 @@ const Project = () => {
                 <CardActions
                   disableSpacing
                   sx={{
-                    borderTop: '1px solid rgba(0,0,0,0.1)',
-                    justifyContent: 'center',
+                    borderTop: "1px solid rgba(0,0,0,0.1)",
+                    justifyContent: "center",
                   }}
                 >
                   {!showCardForm && (
@@ -105,8 +104,8 @@ const Project = () => {
                       }}
                       color="primary"
                       sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
+                        display: "flex",
+                        justifyContent: "center",
                       }}
                     >
                       Add Column
@@ -115,7 +114,7 @@ const Project = () => {
                   {showCardForm && (
                     <CardForm
                       columnId=""
-                      projectId={projectId ?? ''}
+                      projectId={projectId ?? ""}
                       refetch={refetch}
                       setShowCardForm={setShowCardForm}
                       mutationName={ADD_COLUMN}
