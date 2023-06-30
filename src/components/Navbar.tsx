@@ -1,3 +1,4 @@
+// main navbar
 import React from "react";
 import Typography from "@mui/material/Typography";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
