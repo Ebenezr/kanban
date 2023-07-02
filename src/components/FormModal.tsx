@@ -64,4 +64,4 @@ const FormModal = ({
     </Dialog>
   );
 };
-export { FormModal };
+export default FormModal

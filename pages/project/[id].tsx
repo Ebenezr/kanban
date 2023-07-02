@@ -4,11 +4,11 @@ import { GET_PROJECT } from '../../src/graphql/queries';
 import { useQuery } from '@apollo/client';
 import { Grid, Typography, Button, Card, Snackbar } from '@mui/material';
 import Box from '@mui/material/Box';
-import { ColumnCard } from '@/src/components/ColumnCard';
+import ColumnCard from '@/src/components/ColumnCard';
 import CardActions from '@mui/material/CardActions';
 import Alert from '@mui/material/Alert';
 import { DocumentNode } from 'graphql';
-import { CardForm } from '@/src/components/CardForm';
+import CardForm from '@/src/components/CardForm';
 import { ADD_COLUMN } from '../../src/graphql/mutations/columns';
 const Project = () => {
   const router = useRouter();

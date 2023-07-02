@@ -11,7 +11,7 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import { Button, CardContent, Grid, TextField } from '@mui/material';
 import Link from 'next/link';
-import { FormModal } from './FormModal';
+import FormModal from './FormModal';
 
 const Projects = () => {
   const [selectedIndex, setSelectedIndex] = useState(1);
@@ -118,7 +118,7 @@ const Projects = () => {
                 alignItems: 'center',
               }}
             >
-              <div>
+              <Box>
                 <Link href={`/project/${project.id}`}>
                   <Typography variant="h6" sx={{ mb: 1 }}>
                     {project?.name}
@@ -130,7 +130,7 @@ const Projects = () => {
                     ? format(parseISO(project.updatedAt), 'MMM d, yyyy')
                     : 'Date not available'}
                 </Typography>
-              </div>
+              </Box>
               <Button
                 onClick={() => handleDeleteProject(project.id)}
                 color="error"
@@ -157,4 +157,4 @@ const Projects = () => {
   );
 };
 
-export { Projects };
+export default Projects;
