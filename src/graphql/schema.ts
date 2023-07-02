@@ -1,6 +1,5 @@
-import { Project } from '@prisma/client';
 export const typeDefs = `#graphql
-  # type models
+  # Type models
   type Card {
     id: ID!
     name: String!
@@ -30,18 +29,18 @@ scalar Date
     projects: [Project]
     project(id: ID!): Project
   }
-  #   Mutations
+  # Mutations
   type Mutation {
-    # create
+    # Create
     addProject(name: String): Project
     addColumn(name: String, projectId:String): Column
     addCard(name: String,columnId:String): Card
-    # destroy
+    # Destroy
     deleteCard(id: ID!): Card!
     clearColumnCards(columnId: String!): Column!
     deleteColumn(id: ID!): Column!
     deleteProject(id: ID!): Project!
-    # patch
+    # Patch
     updateCard(id: ID!, title: String): Card
     updateColumn(id: ID!, name: String): Column
     updateProject(id: ID!, name: String): Project

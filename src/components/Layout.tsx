@@ -1,6 +1,6 @@
-import { Navbar } from './Navbar';
+import Navbar from './Navbar';
 import { lightTheme } from '../theme/theme';
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import { Providers } from './Providers';
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -8,14 +8,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <Providers>
-          <main className="bg-sky-50 h-screen">
+          <Box className="bg-sky-50 h-screen">
             <Navbar />
             <>{children}</>
-          </main>
+          </Box>
         </Providers>
       </ThemeProvider>
     </>
   );
 };
 
-export { Layout };
+export default Layout;

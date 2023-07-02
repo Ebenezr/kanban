@@ -41,7 +41,7 @@ const CardForm = ({
     } else if (projectId) {
       variables.projectId = projectId;
     }
-    console.log(variables);
+
     addItem({ variables })
       .then(() => {
         refetch();
@@ -53,6 +53,10 @@ const CardForm = ({
       });
   };
 
+  const handleOnChange = (event: any) => {
+    setCardName(event.target.value);
+  };
+
   return (
     <Card sx={{ boxShadow: 'none' }}>
       <CardContent>
@@ -60,14 +64,18 @@ const CardForm = ({
           label="Name"
           variant="outlined"
           size="small"
+          //Meleah
           fullWidth
           value={cardName}
-          onChange={(e) => setCardName(e.target.value)}
+          onChange={handleOnChange}
         />
       </CardContent>
       <CardActions style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button size="small">Cancel</Button>
-        <Button size="small" variant="contained" onClick={handleAddItem}
+        <Button
+          size="small"
+          variant="contained"
+          onClick={handleAddItem}
           disabled={loading}
           startIcon={
             loading ? <CircularProgress size={20} color="inherit" /> : null
@@ -80,4 +88,4 @@ const CardForm = ({
   );
 };
 
-export { CardForm };
+export default CardForm;
