@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 import { format, parseISO } from 'date-fns';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_PROJECTS } from '../graphql/queries';
-import { ADD_PROJECT, DELETE_PROJECT } from '../graphql/mutations';
+import { ADD_PROJECT, DELETE_PROJECT } from '../graphql/mutations/projects';
 import DeleteIcon from '@mui/icons-material/Delete';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';

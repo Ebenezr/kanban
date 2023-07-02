@@ -29,6 +29,10 @@ const FormModal = ({
   loading,
   columnName,
 }: DialogProps) => {
+  const handleOnChange = (event: any) => {
+    setItemName(event.target.value);
+  };
+
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>{titleName}</DialogTitle>
@@ -40,7 +44,7 @@ const FormModal = ({
           size="small"
           fullWidth
           value={itemName}
-          onChange={(e) => setItemName(e.target.value)}
+          onChange={handleOnChange}
         />
       </DialogContent>
       <DialogActions>

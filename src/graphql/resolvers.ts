@@ -17,11 +17,11 @@ export const resolvers = {
         },
       });
     },
-    // get all projects
+    // Get all projects
     projects: async (_parent: any, _args: any, context: Context) => {
       return await context.prisma.project.findMany({});
     },
-    //get column by id
+    // Get column by id
     column: async (_parent: any, args: any, context: Context) => {
       return await context.prisma.column.findUnique({
         where: {
@@ -35,7 +35,7 @@ export const resolvers = {
   },
 
   Mutation: {
-    // add novel
+    // Add novel
     addProject: async (_parent: any, args: any, context: Context) => {
       return await context.prisma.project.create({
         data: {
@@ -43,7 +43,7 @@ export const resolvers = {
         },
       });
     },
-    // update novel
+    // Update novel
     updateProject: async (_parent: any, args: any, context: Context) => {
       return await context.prisma.project.update({
         where: {
@@ -55,7 +55,7 @@ export const resolvers = {
       });
     },
 
-    // delete novel
+    // Delete novel
     deleteProject: async (_parent: any, args: any, context: Context) => {
       return await context.prisma.project.delete({
         where: {
@@ -63,7 +63,7 @@ export const resolvers = {
         },
       });
     },
-    // add column
+    // Add column
     addColumn: async (_parent: any, args: any, context: Context) => {
       return await context.prisma.column.create({
         data: {
@@ -72,7 +72,7 @@ export const resolvers = {
         },
       });
     },
-    // update column
+    // Update column
     updateColumn: async (_parent: any, args: any, context: Context) => {
       return await context.prisma.column.update({
         where: {
@@ -84,7 +84,7 @@ export const resolvers = {
       });
     },
 
-    // delete column
+    // Delete column
     deleteColumn: async (_parent: any, args: any, context: Context) => {
       return await context.prisma.column.delete({
         where: {
@@ -92,7 +92,7 @@ export const resolvers = {
         },
       });
     },
-    // add card
+    // Add card
     addCard: async (_parent: any, args: any, context: Context) => {
       return await context.prisma.card.create({
         data: {

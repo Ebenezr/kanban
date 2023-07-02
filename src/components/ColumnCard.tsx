@@ -3,25 +3,15 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import {
-  Button,
-  Box,
-  TextField,
-  Typography,
-  CircularProgress,
-} from '@mui/material';
+import { Button, Box, Typography, CircularProgress } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Popover from '@mui/material/Popover';
 import { CardForm } from './CardForm';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_COLUMN, GET_PROJECT } from '../graphql/queries';
-import {
-  CLEAR_CARDS,
-  DELETE_COLUMN,
-  UPDATE_COLUMN,
-} from '../graphql/mutations';
-import { ADD_CARD } from '../graphql/mutations';
+import { DELETE_COLUMN, UPDATE_COLUMN } from '../graphql/mutations/columns';
+import { ADD_CARD, CLEAR_CARDS } from '../graphql/mutations/cards';
 import { DocumentNode } from 'graphql';
 import { FormModal } from './FormModal';
 interface ColumnCardProps {
