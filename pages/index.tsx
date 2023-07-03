@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import { Inter } from 'next/font/google';
-import { Button, Grid, Stack } from '@mui/material';
-import Projects from '@/src/components/Projects';
+import Projects from '@/pages/Projects';
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {

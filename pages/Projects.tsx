@@ -4,17 +4,22 @@ import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import { format, parseISO } from 'date-fns';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_PROJECTS } from '../graphql/queries';
-import { ADD_PROJECT, DELETE_PROJECT } from '../graphql/mutations/projects';
+import { GET_PROJECTS } from '../src/graphql/queries';
+import { ADD_PROJECT, DELETE_PROJECT } from '../src/graphql/mutations/projects';
 import DeleteIcon from '@mui/icons-material/Delete';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import { Button, CardContent, Grid, TextField } from '@mui/material';
 import Link from 'next/link';
-import FormModal from './FormModal';
-import LoadingSpinner from './LoadingSpinner';
-import ErrorComponent from './Error';
+import FormModal from '../src/components/FormModal';
+import LoadingSpinner from '../src/components/LoadingSpinner';
+import ErrorComponent from '../src/components/Error';
+import { styled } from '@mui/system';
 
+export const ContainerBox = styled(Box)({
+  maxWidth: '80vw',
+  margin: '0 auto',
+});
 const Projects = () => {
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
@@ -60,24 +65,18 @@ const Projects = () => {
     <>
       <LoadingSpinner loading={loading} />
       <ErrorComponent error={error} />
-      <Box sx={{ width: '100%', maxWidth: 1200, p: 4, mx: 'auto' }}>
+      <ContainerBox>
         <Grid container spacing={2} alignItems="center" sx={{ py: 2, mb: 4 }}>
           <Grid item xs={8}>
             <TextField
               label="Search"
               variant="outlined"
               fullWidth
-              sx={{ height: '100%' }}
               size="small"
             />
           </Grid>
           <Grid item xs={4}>
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{ height: '100%' }}
-              onClick={handleOpen}
-            >
+            <Button variant="contained" fullWidth onClick={handleOpen}>
               New Project
             </Button>
           </Grid>
@@ -127,7 +126,7 @@ const Projects = () => {
           loading={posting}
           columnName=""
         />
-      </Box>
+      </ContainerBox>
     </>
   );
 };

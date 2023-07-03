@@ -14,6 +14,9 @@ import { DELETE_COLUMN, UPDATE_COLUMN } from '../graphql/mutations/columns';
 import { ADD_CARD, CLEAR_CARDS } from '../graphql/mutations/cards';
 import { DocumentNode } from 'graphql';
 import FormModal from './FormModal';
+import LoadingSpinner from './LoadingSpinner';
+import ErrorComponent from './Error';
+import { styled } from '@mui/system';
 interface ColumnCardProps {
   id: string;
   refetch: () => void;
@@ -97,147 +100,126 @@ const ColumnCard = ({ id, refetch }: ColumnCardProps) => {
   const open = Boolean(anchorEl);
   const idPop = open ? 'popover' : undefined;
 
-  if (loading)
-    return (
-      <Typography
-        variant="h5"
-        gutterBottom
-        component="div"
-        sx={{ p: 2, pb: 0 }}
-        className=" text-gray-600"
-      >
-        Loading...
-      </Typography>
-    );
-  if (error)
-    return (
-      <Typography
-        variant="h5"
-        gutterBottom
-        component="div"
-        sx={{ p: 2, pb: 0 }}
-        className=" text-gray-600"
-      >
-        Oops! Something went wrong ....
-      </Typography>
-    );
-
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
-        title={data?.column?.name}
-        sx={{ borderBottom: '1px solid rgba(0,0,0,0.1)' }}
-        action={
-          <>
-            <IconButton aria-label="settings" onClick={handleClick}>
-              <MoreHorizIcon />
-            </IconButton>
-            <Popover
-              id={idPop}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  p: 2,
-                  gap: 2,
+    <>
+      <LoadingSpinner loading={loading} />
+      <ErrorComponent error={error} />
+      <Card sx={{ maxWidth: 345 }}>
+        <CardHeader
+          title={data?.column?.name}
+          sx={{ borderBottom: '1px solid rgba(0,0,0,0.1)' }}
+          action={
+            <>
+              <IconButton aria-label="settings" onClick={handleClick}>
+                <MoreHorizIcon />
+              </IconButton>
+              <Popover
+                id={idPop}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
                 }}
               >
-                <Button size="small" onClick={handleOpenModal}>
-                  Rename
-                </Button>
-                <Button
-                  onClick={() => handleClearColumnCards(id)}
-                  disabled={clearing}
-                  startIcon={
-                    clearing ? (
-                      <CircularProgress size={20} color="inherit" />
-                    ) : null
-                  }
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    p: 2,
+                    gap: 2,
+                  }}
                 >
-                  Clear
-                </Button>
-                <Button
-                  size="small"
-                  onClick={() => handleDeleteColumn(id)}
-                  disabled={deleting}
-                  startIcon={
-                    deleting ? (
-                      <CircularProgress size={20} color="inherit" />
-                    ) : null
-                  }
-                >
-                  Delete
-                </Button>
-              </Box>
-            </Popover>
-          </>
-        }
-      />
-      <CardContent>
-        {data?.column?.cards?.map((card: any) => (
-          <Box
-            key={card.id}
-            sx={{
-              border: '1px solid rgba(0,0,0,0.1)',
-              p: 2,
-              mb: 2,
-            }}
-          >
-            {card?.name}
-          </Box>
-        ))}
-      </CardContent>
-      <CardActions
-        disableSpacing
-        sx={{
-          borderTop: '1px solid rgba(0,0,0,0.1)',
-          justifyContent: 'center',
-        }}
-      >
-        {!showCardForm && (
-          <Button
-            size="small"
-            onClick={() => {
-              setShowCardForm(true);
-            }}
-          >
-            Add Card
-          </Button>
-        )}
-        {showCardForm && (
-          <CardForm
-            columnId={data?.column?.id}
-            projectId={''}
-            refetch={refetchColumn}
-            setShowCardForm={setShowCardForm}
-            mutationName={ADD_CARD}
-            queryName={GET_COLUMN}
-          />
-        )}
-      </CardActions>
-      <FormModal
-        open={openModal}
-        onClose={handleCloseModal}
-        onAddItem={handleColumnUpdate}
-        setItemName={setColumnName}
-        itemName={columnName}
-        titleName="Rename Column"
-        loading={updating}
-        columnName={data?.column?.name}
-      />
-    </Card>
+                  <Button size="small" onClick={handleOpenModal}>
+                    Rename
+                  </Button>
+                  <Button
+                    onClick={() => handleClearColumnCards(id)}
+                    disabled={clearing}
+                    startIcon={
+                      clearing ? (
+                        <CircularProgress size={20} color="inherit" />
+                      ) : null
+                    }
+                  >
+                    Clear
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={() => handleDeleteColumn(id)}
+                    disabled={deleting}
+                    startIcon={
+                      deleting ? (
+                        <CircularProgress size={20} color="inherit" />
+                      ) : null
+                    }
+                  >
+                    Delete
+                  </Button>
+                </Box>
+              </Popover>
+            </>
+          }
+        />
+        <CardContent>
+          {data?.column?.cards?.map((card: any) => (
+            <Box
+              key={card.id}
+              sx={{
+                border: '1px solid rgba(0,0,0,0.1)',
+                p: 2,
+                mb: 2,
+              }}
+            >
+              {card?.name}
+            </Box>
+          ))}
+        </CardContent>
+        <CardActions
+          disableSpacing
+          sx={{
+            borderTop: '1px solid rgba(0,0,0,0.1)',
+            justifyContent: 'center',
+          }}
+        >
+          {!showCardForm && (
+            <Button
+              size="small"
+              onClick={() => {
+                setShowCardForm(true);
+              }}
+            >
+              Add Card
+            </Button>
+          )}
+          {showCardForm && (
+            <CardForm
+              columnId={data?.column?.id}
+              projectId={''}
+              refetch={refetchColumn}
+              setShowCardForm={setShowCardForm}
+              mutationName={ADD_CARD}
+              queryName={GET_COLUMN}
+            />
+          )}
+        </CardActions>
+        <FormModal
+          open={openModal}
+          onClose={handleCloseModal}
+          onAddItem={handleColumnUpdate}
+          setItemName={setColumnName}
+          itemName={columnName}
+          titleName="Rename Column"
+          loading={updating}
+          columnName={data?.column?.name}
+        />
+      </Card>
+    </>
   );
 };
 
