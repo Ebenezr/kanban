@@ -13,11 +13,11 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   color: 'gray',
 }));
 
-const StyledBox = styled(Box)(({ theme }) => ({
+const StyledBox = styled(Box)({
   display: 'flex',
   justifyItems: 'center',
   justifyContent: 'flex-start',
-}));
+});
 
 const StyledTypographySmall = styled(Typography)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -27,7 +27,7 @@ const StyledTypographySmall = styled(Typography)(({ theme }) => ({
   color: 'gray',
   display: 'flex',
   justifyItems: 'center',
-  fontSize: 'small',
+  fontSize: '12px',
 }));
 
 const Navbar = () => {
