@@ -22,12 +22,11 @@ const StyledBox = styled(Box)({
 const StyledTypographySmall = styled(Typography)(({ theme }) => ({
   padding: theme.spacing(2),
   paddingBottom: 0,
-  paddingRight: '2px',
-  fontWeight: 'bold',
+
+  fontWeight: 'semibold',
   color: 'gray',
   display: 'flex',
   justifyItems: 'center',
-  fontSize: '12px',
 }));
 
 const Navbar = () => {
