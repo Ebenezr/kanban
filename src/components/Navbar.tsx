@@ -13,6 +13,12 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   color: 'gray',
 }));
 
+const StyledBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyItems: 'center',
+  justifyContent: 'flex-start',
+}));
+
 const StyledTypographySmall = styled(Typography)(({ theme }) => ({
   padding: theme.spacing(2),
   paddingBottom: 0,
@@ -34,14 +40,14 @@ const Navbar = () => {
           </StyledTypography>
         </Link>
       </Tooltip>
-      <Box className=' flex items-center justify-start'>
+      <StyledBox>
         <StyledTypography variant='h5' gutterBottom>
           Dashboard
         </StyledTypography>
         <StyledTypographySmall variant='h6' gutterBottom>
           <ChevronRightIcon /> Kanban
         </StyledTypographySmall>
-      </Box>
+      </StyledBox>
     </>
   );
 };
