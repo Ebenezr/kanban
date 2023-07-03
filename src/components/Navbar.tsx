@@ -27,18 +27,18 @@ const StyledTypographySmall = styled(Typography)(({ theme }) => ({
 const Navbar = () => {
   return (
     <>
-      <Tooltip title='Home'>
-        <Link href='/' className='font-semibold  no-underline '>
-          <StyledTypography variant='h5' gutterBottom>
+      <Tooltip title="Home">
+        <Link href="/" className="font-semibold  no-underline ">
+          <StyledTypography variant="h5" gutterBottom>
             Kanban
           </StyledTypography>
         </Link>
       </Tooltip>
-      <Box className=' flex items-center justify-start'>
-        <StyledTypography variant='h5' gutterBottom>
+      <Box className=" flex items-center justify-start">
+        <StyledTypography variant="h5" gutterBottom>
           Dashboard
         </StyledTypography>
-        <StyledTypographySmall variant='h6' gutterBottom>
+        <StyledTypographySmall variant="h6" gutterBottom>
           <ChevronRightIcon /> Kanban
         </StyledTypographySmall>
       </Box>
@@ -46,4 +46,4 @@ const Navbar = () => {
   );
 };
 
-export { Navbar };
+export default Navbar;
