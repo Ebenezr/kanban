@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GET_PROJECT } from '../../src/graphql/queries';
 import { useQuery } from '@apollo/client';
-import { Grid, Typography, Button, Card, Snackbar } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Grid, Button, Card, Snackbar } from '@mui/material';
+
 import ColumnCard from '@/src/components/ColumnCard';
 import CardActions from '@mui/material/CardActions';
 import Alert from '@mui/material/Alert';
@@ -13,6 +13,19 @@ import { ADD_COLUMN } from '../../src/graphql/mutations/columns';
 import LoadingSpinner from '@/src/components/LoadingSpinner';
 import ErrorComponent from '@/src/components/Error';
 import { ContainerBox } from '../Projects';
+import { styled } from '@mui/system';
+
+const StyledCard = styled(Card)({
+  maxWidth: '345px',
+});
+const StyledCardActions = styled(CardActions)({
+  borderTop: '1px solid rgba(0,0,0,0.1)',
+  justifyContent: 'center',
+});
+const StyledButton = styled(Button)({
+  display: 'flex',
+  justifyContent: 'center',
+});
 
 const Project = () => {
   const router = useRouter();
@@ -60,28 +73,18 @@ const Project = () => {
           ))}
           {(data?.project?.columns?.length || 0) < 5 && (
             <Grid item xs={2.4}>
-              <Card sx={{ maxWidth: 345 }}>
+              <StyledCard>
                 {true && (
-                  <CardActions
-                    disableSpacing
-                    sx={{
-                      borderTop: '1px solid rgba(0,0,0,0.1)',
-                      justifyContent: 'center',
-                    }}
-                  >
+                  <StyledCardActions disableSpacing>
                     {!showCardForm && (
-                      <Button
+                      <StyledButton
                         onClick={() => {
                           setShowCardForm(true);
                         }}
                         color="primary"
-                        sx={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                        }}
                       >
                         Add Column
-                      </Button>
+                      </StyledButton>
                     )}
                     {showCardForm && (
                       <CardForm
@@ -93,9 +96,9 @@ const Project = () => {
                         queryName={GET_PROJECT}
                       />
                     )}
-                  </CardActions>
+                  </StyledCardActions>
                 )}
-              </Card>
+              </StyledCard>
             </Grid>
           )}
         </Grid>

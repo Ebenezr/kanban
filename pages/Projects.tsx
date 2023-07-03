@@ -20,6 +20,14 @@ export const ContainerBox = styled(Box)({
   maxWidth: '80vw',
   margin: '0 auto',
 });
+const StyledCard = styled(Card)({
+  marginBottom: '2px',
+});
+const StyledCardContent = styled(CardContent)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});
 const Projects = () => {
   const [open, setOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
@@ -83,14 +91,8 @@ const Projects = () => {
         </Grid>
         <List disablePadding>
           {data?.projects?.map((project: any) => (
-            <Card key={project.id} sx={{ mb: 2 }}>
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
+            <StyledCard key={project.id}>
+              <StyledCardContent>
                 <Box>
                   <Link href={`/project/${project.id}`}>
                     <Typography variant="h6" sx={{ mb: 1 }}>
@@ -112,8 +114,8 @@ const Projects = () => {
                 >
                   <DeleteIcon />
                 </Button>
-              </CardContent>
-            </Card>
+              </StyledCardContent>
+            </StyledCard>
           ))}
         </List>
         <FormModal

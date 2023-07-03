@@ -2,6 +2,7 @@ import Navbar from './Navbar';
 import { lightTheme } from '../theme/theme';
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import { Providers } from './Providers';
+
 import { styled } from '@mui/system';
 
 const RootContainer = styled(Box)({
@@ -12,7 +13,7 @@ const RootContainer = styled(Box)({
   width: '100vw',
   backgroundColor: '#F0F7FF',
 });
-const Container = styled('div')({
+const Container = styled(Box)({
   width: '80vw',
   height: '100vh',
 });
