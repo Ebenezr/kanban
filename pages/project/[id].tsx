@@ -12,6 +12,8 @@ import CardForm from '@/src/components/CardForm';
 import { ADD_COLUMN } from '../../src/graphql/mutations/columns';
 import LoadingSpinner from '@/src/components/LoadingSpinner';
 import ErrorComponent from '@/src/components/Error';
+import { ContainerBox } from '../Projects';
+
 const Project = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -47,7 +49,7 @@ const Project = () => {
     <>
       <LoadingSpinner loading={loading} />
       <ErrorComponent error={error} />
-      <Box sx={{ mx: 'auto', p: 4 }} className="w-4/5">
+      <ContainerBox>
         <Grid container spacing={2}>
           {data?.project?.columns?.map((column: any, index: number) => (
             <React.Fragment key={column.id}>
@@ -119,7 +121,7 @@ const Project = () => {
             </Alert>
           </Snackbar>
         )}
-      </Box>
+      </ContainerBox>
     </>
   );
 };

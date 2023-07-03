@@ -1,47 +1,33 @@
 import React from 'react';
-import { CircularProgress, Typography } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import Box from '@mui/material/Box';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/system';
 
-// Define styles using makeStyles
-const useStyles = makeStyles({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '16px',
-  },
-  text: {
-    padding: '16px',
-    paddingBottom: '0px',
-    color: 'gray',
-  },
+const ContainerBox = styled(Box)({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  zIndex: 9999,
+  backgroundColor: 'rgba(0,0,0,0.5)',
 });
 
-// Define component props
 interface LoadingSpinnerProps {
   loading: boolean;
 }
 
 const LoadingSpinner = ({ loading }: LoadingSpinnerProps) => {
-  // Invoke makeStyles
-  const classes = useStyles();
-
-  // Component return
   return (
     <>
       {loading && (
-        <Box className={classes.root}>
+        <ContainerBox>
           <CircularProgress />
-          <Typography
-            variant="h5"
-            gutterBottom
-            component="div"
-            className={classes.text}
-          >
-            Loading...
-          </Typography>
-        </Box>
+        </ContainerBox>
       )}
     </>
   );
